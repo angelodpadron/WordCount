@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Hashmap": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Dev\\Net\\Hashmap\\Hashmap\\sample\\sample.txt 10"
+    }
+  }
+}
