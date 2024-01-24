@@ -7,7 +7,7 @@ internal partial class Program
     [GeneratedRegex(@"\w+")]
     private static partial Regex SplitRegex();
 
-    [GeneratedRegex(@"\.txt$")]
+    [GeneratedRegex(@"\.txt")]
     private static partial Regex FileExtensionRegex();
 
     [GeneratedRegex(@"^[1-9]\d*$")]
@@ -16,7 +16,7 @@ internal partial class Program
     static void Main(string[] args)
     {
 
-        if (args.Length != 2 || !FileExtensionRegex().Match(args[0]).Success || !TopFormatRegex().Match(args[1]).Success)
+        if (args.Length != 2 || !TopFormatRegex().Match(args[1]).Success)
         {
             string program = Path.GetFileNameWithoutExtension(Environment.GetCommandLineArgs()[0]);
             Console.WriteLine($"Usage: {program} <path_to_txt_file> <top>");
@@ -42,31 +42,16 @@ internal partial class Program
 
             Console.WriteLine($"\nWords analyzed: {wordsInfo.Length}\n");
         }
-        catch (FileNotFoundException)
+        catch (Exception ex)
         {
-            Console.WriteLine($"File not found: {filepath}");
+            Console.WriteLine($"Error: {ex.Message}");
         }
 
     }
 
     static WordInfo[] WordCount(string source)
     {
-        List<string> tokens = [];
-
-        using (var reader = new StreamReader(source))
-        {
-            while (!reader.EndOfStream)
-            {
-                tokens
-                    .AddRange(
-                        SplitRegex()
-                            .Matches(reader.ReadLine()!)
-                            .Select(match => match.Value)
-                            .ToArray()
-                    );
-
-            }
-        }
+        List<string> tokens = GetTokensFor(source);
 
         Hashmap<string, WordInfo> table = new(tokens.Distinct().Count());  //TODO: a more optimal way to calculate the required space
 
@@ -87,11 +72,43 @@ internal partial class Program
 
         }
 
-        return table
-            .Values()
-            .OrderByDescending(item => item.Count)
-            .ToArray();
+        return [.. table.Values().OrderByDescending(item => item.Count)];
 
+    }
+
+    private static List<string> GetTokensFor(string source)
+    {
+        List<string> tokens = [];
+
+        using (var reader = GetReaderFor(source))
+        {
+            while (!reader.EndOfStream)
+            {
+                tokens
+                    .AddRange(
+                        SplitRegex()
+                            .Matches(reader.ReadLine()!)
+                            .Select(match => match.Value)
+                            .ToArray()
+                    );
+
+            }
+        }
+
+        return tokens;
+
+    }
+
+    static StreamReader GetReaderFor(string source)
+    {
+
+        string extension = Path.GetExtension(source)?.ToLower();
+
+        return extension switch
+        {
+            ".txt" => new StreamReader(source),
+            _ => throw new NotSupportedException($"File type {extension} is not supported."),
+        };
     }
 
 }
