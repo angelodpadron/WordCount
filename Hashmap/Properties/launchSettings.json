@@ -2,7 +2,7 @@
   "profiles": {
     "Hashmap": {
       "commandName": "Project",
-      "commandLineArgs": "C:\\Dev\\Net\\Hashmap\\Hashmap\\sample\\sample.txt 10"
+      "commandLineArgs": "C:\\Dev\\Net\\Hashmap\\Hashmap\\Samples\\sample.json 25"
     }
   }
 }

@@ -7,4 +7,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="sample\**" />
+    <EmbeddedResource Remove="sample\**" />
+    <None Remove="sample\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="PdfPig" Version="0.1.8" />
+  </ItemGroup>
+
 </Project>
