@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "Hashmap": {
-      "commandName": "Project",
-      "commandLineArgs": "C:\\Dev\\Net\\Hashmap\\Hashmap\\Samples\\sample.json 25"
-    }
-  }
-}

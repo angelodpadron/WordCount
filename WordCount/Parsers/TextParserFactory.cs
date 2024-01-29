@@ -11,7 +11,7 @@ internal class TextParserFactory
         {
             ".txt" => new PlainTextParser(),
             ".pdf" => new PDFParser(),
-            _ => throw new NotSupportedException($"File type {extension} is not supported by any of the available parsers."),
+            _ => throw new NotSupportedException($"File type {extension} is not supported."),
         };
     }
 }

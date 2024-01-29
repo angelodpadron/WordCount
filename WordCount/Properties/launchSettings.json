@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "WordCount": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Dev\\Net\\WordCount\\WordCount\\Samples\\sample.txt 25"
+    }
+  }
+}
