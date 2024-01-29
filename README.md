@@ -1,4 +1,4 @@
-# Hashmap
+# WordCount
 
 ## Overview
 
